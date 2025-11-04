@@ -1,5 +1,5 @@
 import allure
-from data import Urls, User_1, User_2
+from data import User_1, User_2
 from pages.main_page import MainPage
 from pages.order_page import OrderPage
 
