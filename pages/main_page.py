@@ -3,7 +3,8 @@ from data import Urls
 from pages.base_page import BasePage
 from locators.main_page_locators import MainPageLocators
 from locators.order_page_locators import OrderPageLocators
-
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.ui import WebDriverWait
 
 class MainPage(BasePage):
 
@@ -68,10 +69,8 @@ class MainPage(BasePage):
 
     @allure.step("Проверить, что открыта страница Дзена")
     def is_dzen_opened(self, timeout=10):
-        import time
-        for _ in range(timeout):
-            current_url = self.get_current_url()
-            if "dzen.ru" in current_url:
-                return True
-            time.sleep(1)
-        return False
+        try:
+            WebDriverWait(self.driver, timeout).until(expected_conditions.url_contains("dzen.ru"))
+            return True
+        except Exception:
+            return False
